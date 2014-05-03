@@ -7,5 +7,7 @@ package com.whatanadventure.framework.mvc
     {
         function toJSON():Object;
         function fromJSON(data:Object):void;
+
+        function setProperties(properties:Object):void;
     }
 }

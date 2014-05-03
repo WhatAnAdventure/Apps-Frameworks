@@ -3,23 +3,30 @@
  */
 package com.whatanadventure.framework.managers
 {
-    import com.whatanadventure.framework.data.Fetcher;
-
     import starling.events.EventDispatcher;
 
     public class BaseGameManager extends EventDispatcher
     {
+        protected var _modelManager:BaseModelManager;
+        protected var _resourceManager:BaseResourceManager;
+
         public function BaseGameManager()
         {
             super();
         }
-        protected var _modelManager:BaseModelManager;
-        protected var _dataFecther:Fetcher;
 
         public function init():void
         {
-            _modelManager = new BaseModelManager(this);
-            _dataFecther = new Fetcher();
+        }
+
+        public function get modelManager():BaseModelManager
+        {
+            return _modelManager;
+        }
+
+        public function get resourceManager():BaseResourceManager
+        {
+            return _resourceManager;
         }
     }
 }

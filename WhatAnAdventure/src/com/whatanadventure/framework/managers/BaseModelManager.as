@@ -11,16 +11,17 @@ package com.whatanadventure.framework.managers
 
     public class BaseModelManager extends EventDispatcher
     {
-        public function BaseModelManager(gameManager:BaseGameManager)
+//        protected var _gameManager:BaseGameManager;
+        protected var _models:Dictionary;
+
+        public function BaseModelManager(/*gameManager:BaseGameManager*/)
         {
             super();
 
-            _gameManager = gameManager;
+//            _gameManager = gameManager;
 
             makeModels();
         }
-        protected var _gameManager:BaseGameManager;
-        protected var _models:Dictionary;
 
         public function getModel(modelName:String):MVCModel
         {
@@ -32,9 +33,10 @@ package com.whatanadventure.framework.managers
             _models = new Dictionary();
         }
 
-        protected function addModel(model:MVCModel):void
+        protected function addModel(model:MVCModel):MVCModel
         {
             _models[model.name] = model;
+            return _models[model.name];
         }
     }
 }

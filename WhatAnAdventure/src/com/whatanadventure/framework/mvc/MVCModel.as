@@ -26,9 +26,9 @@ package com.whatanadventure.framework.mvc
             return _modelName;
         }
 
-        public function setProperty(name:String, value:*, type:Class):void
+        public function setProperty(name:String, value:*):void
         {
-            if (this.hasOwnProperty(name) && this[name] is type && this[name] != value)
+            if (this.hasOwnProperty(name) && this[name] != value)
             {
                 this[name] = value;
                 dispatchEventWith(Event.CHANGE, false, {"model": this, "name": name});
@@ -43,6 +43,15 @@ package com.whatanadventure.framework.mvc
                 result = this[name];
 
             return result;
+        }
+
+        public function setProperties(properties:Object):void
+        {
+            for (var name:String in properties)
+            {
+                setProperty(name, properties[name]);
+            }
+            trace('done');
         }
     }
 }
