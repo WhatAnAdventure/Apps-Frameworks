@@ -26,12 +26,13 @@ package com.whatanadventure.framework.mvc
             return _modelName;
         }
 
-        public function setProperty(name:String, value:*):void
+        public function setProperty(name:String, value:*, suppressChange:Boolean = false):void
         {
             if (this.hasOwnProperty(name) && this[name] != value)
             {
                 this[name] = value;
-                dispatchEventWith(Event.CHANGE, false, {"model": this, "name": name});
+                if (!suppressChange)
+                    dispatchEventWith(Event.CHANGE, false, {"model": this, "properties": {name:name}});
             }
         }
 
@@ -49,9 +50,9 @@ package com.whatanadventure.framework.mvc
         {
             for (var name:String in properties)
             {
-                setProperty(name, properties[name]);
+                setProperty(name, properties[name], true);
             }
-            trace('done');
+            dispatchEventWith(Event.CHANGE, false, {"model": this, "properties": properties});
         }
     }
 }
