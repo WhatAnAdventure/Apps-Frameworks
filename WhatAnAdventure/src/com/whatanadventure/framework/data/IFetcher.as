@@ -7,6 +7,6 @@ package com.whatanadventure.framework.data
     {
         function get isFetching():Boolean;
 
-        function fetchGameData():void;
+        function onComplete():void;
     }
 }

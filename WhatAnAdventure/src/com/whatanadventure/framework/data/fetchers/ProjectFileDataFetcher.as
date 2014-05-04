@@ -5,14 +5,12 @@ package com.whatanadventure.framework.data.fetchers
 {
     import com.whatanadventure.framework.data.BaseFetcher;
     import com.whatanadventure.framework.data.IFetcher;
-    import com.whatanadventure.framework.data.ManifestObject;
     import com.whatanadventure.framework.managers.BaseGameManager;
-    import com.whatanadventure.framework.managers.BaseResourceManager;
     import com.whatanadventure.framework.managers.IModelManager;
 
     import flash.events.Event;
+
     import flash.net.URLLoader;
-    import flash.net.URLRequest;
 
     public class ProjectFileDataFetcher extends BaseFetcher implements IFetcher
     {
@@ -20,7 +18,6 @@ package com.whatanadventure.framework.data.fetchers
 
         protected var _manifestURL:String;
         protected var _manifestData:Object;
-        protected var _isFetching:Boolean;
 
         public function ProjectFileDataFetcher(gameManager:BaseGameManager, manifestURL:String)
         {
@@ -35,17 +32,23 @@ package com.whatanadventure.framework.data.fetchers
             return _isFetching;
         }
 
-        public function fetchGameData():void
+        override public function fetchGameData():void
         {
-            if (_isFetching)
-                return;
-            _isFetching = true;
+            super.fetchGameData();
 
+            fetchManifest();
+        }
+
+        protected function fetchManifest():void
+        {
             _gameManager.resourceManager.getProjectFileAt(_manifestURL, receivedManifest);
         }
 
         protected function receivedManifest(event:Event):void
         {
+            _numFilesRequesting = 0;
+            _numFilesReceived = 0;
+
             var loader:URLLoader = URLLoader(event.target);
             _manifestData = JSON.parse(loader.data);
 
@@ -53,6 +56,7 @@ package com.whatanadventure.framework.data.fetchers
             for (var fetchType:String in _manifestData)
             {
                 paths = _manifestData[fetchType];
+                _numFilesRequesting += paths.length;
                 var path:String;
                 for each (path in paths)
                 {
@@ -61,11 +65,19 @@ package com.whatanadventure.framework.data.fetchers
             }
         }
 
-        private function receivedFileData(event:Event):void
+        override protected function receivedFileData(event:Event):void
         {
             var loader:URLLoader = URLLoader(event.target);
             var fileData:Object = JSON.parse(loader.data);
             (_gameManager.modelManager as IModelManager).makeModelFromData(fileData);
+
+            super.receivedFileData(event);
+        }
+
+        public function onComplete():void
+        {
+            trace("ProjectFileDataFetcher COMPLETE!");
+            dispatchEventWith(Event.COMPLETE, false, {"fetcher":this});
         }
     }
 }
