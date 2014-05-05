@@ -6,20 +6,34 @@ package com.whatanadventure.framework.data.fetchers
     import com.whatanadventure.framework.data.BaseFetcher;
     import com.whatanadventure.framework.data.IFetcher;
 
+    import flash.events.Event;
+
+    import flash.filesystem.File;
+    import flash.net.FileFilter;
+    import flash.net.FileReference;
+
     public class LocalDataFetcher extends BaseFetcher implements IFetcher
     {
+        protected var _manifest:File;
+
         public function LocalDataFetcher()
         {
             super();
         }
 
-        public function get isFetching():Boolean
+        override public function fetchGameData():void
         {
-            return false;
+            super.fetchGameData();
+
+            _manifest = new File();
+            _manifest.addEventListener(Event.SELECT, onManifestChosen);
+            _manifest.browseForOpen("Select manifest file ...", [new FileFilter("json", "*.json")]);
         }
 
-        public function fetchGameData():void
+        private function onManifestChosen(event:Event):void
         {
+            var loadFile:File = event.target as File;
+            trace('here');
         }
     }
 }

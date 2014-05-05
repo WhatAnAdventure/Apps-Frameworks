@@ -5,8 +5,7 @@ package com.whatanadventure.framework.data
 {
     public interface IFetcher
     {
-        function get isFetching():Boolean;
-
-        function onComplete():void;
+        function fetchGameData():void;
+//        function onComplete():void;
     }
 }

@@ -18,6 +18,11 @@ package com.whatanadventure.framework.data
             super();
         }
 
+        public function get isFetching():Boolean
+        {
+            return _isFetching;
+        }
+
         public function fetchGameData():void
         {
             if (_isFetching)
@@ -31,8 +36,13 @@ package com.whatanadventure.framework.data
 
             if (_numFilesReceived >= _numFilesRequesting)
             {
-                (this as IFetcher).onComplete();
+                onComplete();
             }
+        }
+
+        public function onComplete():void
+        {
+            dispatchEventWith(Event.COMPLETE, false, {"fetcher":this});
         }
     }
 }

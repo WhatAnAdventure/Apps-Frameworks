@@ -27,11 +27,6 @@ package com.whatanadventure.framework.data.fetchers
             _manifestURL = manifestURL;
         }
 
-        public function get isFetching():Boolean
-        {
-            return _isFetching;
-        }
-
         override public function fetchGameData():void
         {
             super.fetchGameData();
@@ -72,12 +67,6 @@ package com.whatanadventure.framework.data.fetchers
             (_gameManager.modelManager as IModelManager).makeModelFromData(fileData);
 
             super.receivedFileData(event);
-        }
-
-        public function onComplete():void
-        {
-            trace("ProjectFileDataFetcher COMPLETE!");
-            dispatchEventWith(Event.COMPLETE, false, {"fetcher":this});
         }
     }
 }
