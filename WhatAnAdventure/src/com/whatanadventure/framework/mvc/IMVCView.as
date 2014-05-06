@@ -6,5 +6,6 @@ package com.whatanadventure.framework.mvc
     public interface IMVCView
     {
         function reinitialize():void;
+        function updateLayout():void;
     }
 }
