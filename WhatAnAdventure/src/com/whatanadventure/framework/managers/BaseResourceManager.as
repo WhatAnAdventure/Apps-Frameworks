@@ -3,7 +3,8 @@
  */
 package com.whatanadventure.framework.managers
 {
-    import com.whatanadventure.framework.data.IFetcher;
+    import com.whatanadventure.framework.data.fetchers.BaseFetcher;
+    import com.whatanadventure.framework.data.fetchers.IFetcher;
 
     import flash.events.ProgressEvent;
     import flash.net.URLLoader;
@@ -14,15 +15,15 @@ package com.whatanadventure.framework.managers
 
     public class BaseResourceManager extends EventDispatcher
     {
-        protected var _dataFetchers:Vector.<IFetcher>;
+        protected var _dataFetchers:Vector.<BaseFetcher>;
         protected var _urlLoaders:Vector.<URLLoader>;
         private var _numCompletedFetchers:int;
-        
+
         public function BaseResourceManager()
         {
             super();
 
-            _dataFetchers = new Vector.<IFetcher>();
+            _dataFetchers = new Vector.<BaseFetcher>();
         }
 
         public function fetchData():void
@@ -31,13 +32,13 @@ package com.whatanadventure.framework.managers
             clearLoaders();
             _urlLoaders = new Vector.<URLLoader>();
 
-            for each (var dataFetcher:IFetcher in _dataFetchers)
+            for each (var dataFetcher:BaseFetcher in _dataFetchers)
             {
                 dataFetcher.fetchGameData();
             }
         }
 
-        protected function addDataFetcher(dataFetcher:IFetcher):void
+        protected function addDataFetcher(dataFetcher:BaseFetcher):void
         {
             _dataFetchers.push(dataFetcher);
             (dataFetcher as EventDispatcher).addEventListener(Event.COMPLETE, onFetcherComplete);

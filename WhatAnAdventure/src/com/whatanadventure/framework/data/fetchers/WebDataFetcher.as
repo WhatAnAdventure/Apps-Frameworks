@@ -3,8 +3,8 @@
  */
 package com.whatanadventure.framework.data.fetchers
 {
-    import com.whatanadventure.framework.data.BaseFetcher;
-    import com.whatanadventure.framework.data.IFetcher;
+    import com.whatanadventure.framework.data.fetchers.BaseFetcher;
+    import com.whatanadventure.framework.data.fetchers.IFetcher;
 
     public class WebDataFetcher extends BaseFetcher implements IFetcher
     {

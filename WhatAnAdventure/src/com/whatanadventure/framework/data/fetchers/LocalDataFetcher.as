@@ -3,37 +3,55 @@
  */
 package com.whatanadventure.framework.data.fetchers
 {
-    import com.whatanadventure.framework.data.BaseFetcher;
-    import com.whatanadventure.framework.data.IFetcher;
+    import com.whatanadventure.adventuregame.config.GameConfig;
+    import com.whatanadventure.adventuregame.managers.GameManager;
 
     import flash.events.Event;
-
     import flash.filesystem.File;
     import flash.net.FileFilter;
-    import flash.net.FileReference;
+    import flash.net.SharedObject;
 
     public class LocalDataFetcher extends BaseFetcher implements IFetcher
     {
-        protected var _manifest:File;
+        protected var _savedManifestURL:String;
+        protected var _sharedObject:SharedObject;
 
-        public function LocalDataFetcher()
+        public function LocalDataFetcher(gameManager:GameManager)
         {
-            super();
+            super(gameManager);
+
+            _sharedObject = SharedObject.getLocal(GameConfig.SHARED_OBJECT_NAME);
+            if (_sharedObject.data.savedManifestURL)
+                _savedManifestURL = _sharedObject.data.savedManifestURL;
         }
 
-        override public function fetchGameData():void
+        public function fetchManifest():void
         {
-            super.fetchGameData();
-
-            _manifest = new File();
-            _manifest.addEventListener(Event.SELECT, onManifestChosen);
-            _manifest.browseForOpen("Select manifest file ...", [new FileFilter("json", "*.json")]);
+            if (!_savedManifestURL || _savedManifestURL == "")
+            {
+                var file:File = new File();
+                file.addEventListener(Event.SELECT, onManifestChosen);
+                file.browseForOpen("Select manifest file ...", [new FileFilter("json", "*.json")]);
+            }
+            else
+            {
+                _gameManager.resourceManager.getProjectFileAt(_savedManifestURL, receivedManifest);
+            }
         }
 
         private function onManifestChosen(event:Event):void
         {
             var loadFile:File = event.target as File;
-            trace('here');
+            savedManifestURL = loadFile.url;
+            _gameManager.resourceManager.getProjectFileAt(loadFile.url, receivedManifest);
+        }
+
+        public function set savedManifestURL(value:String):void
+        {
+            _savedManifestURL = value;
+
+            _sharedObject.data.savedManifestURL = _savedManifestURL;
+            _sharedObject.flush();
         }
     }
 }

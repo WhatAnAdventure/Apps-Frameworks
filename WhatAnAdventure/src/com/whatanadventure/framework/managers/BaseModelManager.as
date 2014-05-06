@@ -38,5 +38,10 @@ package com.whatanadventure.framework.managers
             _models[model.name] = model;
             return _models[model.name];
         }
+
+        public function get models():Dictionary
+        {
+            return _models;
+        }
     }
 }
