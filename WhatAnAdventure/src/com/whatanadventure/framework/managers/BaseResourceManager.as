@@ -4,7 +4,6 @@
 package com.whatanadventure.framework.managers
 {
     import com.whatanadventure.framework.data.fetchers.BaseFetcher;
-    import com.whatanadventure.framework.data.fetchers.IFetcher;
 
     import flash.events.ProgressEvent;
     import flash.net.URLLoader;
