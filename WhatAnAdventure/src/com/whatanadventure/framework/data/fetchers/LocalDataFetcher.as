@@ -3,8 +3,8 @@
  */
 package com.whatanadventure.framework.data.fetchers
 {
-    import com.whatanadventure.adventuregame.config.GameConfig;
-    import com.whatanadventure.adventuregame.managers.GameManager;
+    import com.whatanadventure.framework.config.FrameworkConfig;
+    import com.whatanadventure.framework.managers.BaseGameManager;
 
     import flash.events.Event;
     import flash.filesystem.File;
@@ -16,11 +16,11 @@ package com.whatanadventure.framework.data.fetchers
         protected var _savedManifestURL:String;
         protected var _sharedObject:SharedObject;
 
-        public function LocalDataFetcher(gameManager:GameManager)
+        public function LocalDataFetcher(gameManager:BaseGameManager)
         {
             super(gameManager);
 
-            _sharedObject = SharedObject.getLocal(GameConfig.SHARED_OBJECT_NAME);
+            _sharedObject = SharedObject.getLocal(FrameworkConfig.SHARED_OBJECT_NAME);
             if (_sharedObject.data.savedManifestURL)
                 _savedManifestURL = _sharedObject.data.savedManifestURL;
         }

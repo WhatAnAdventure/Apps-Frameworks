@@ -4,15 +4,14 @@
 package com.whatanadventure.framework.mvc.view
 {
     import com.whatanadventure.adventuregame.managers.GameManager;
-    import com.whatanadventure.adventuregame.managers.ModelManager;
+    import com.whatanadventure.framework.managers.BaseModelManager;
+    import com.whatanadventure.framework.mvc.IMVCView;
+    import com.whatanadventure.framework.mvc.MVCView;
     import com.whatanadventure.framework.mvc.layout.CenterButtonGroupLayout;
     import com.whatanadventure.framework.mvc.layout.MVCViewLayout;
     import com.whatanadventure.framework.mvc.models.MVCViewLayouts;
-    import com.whatanadventure.framework.mvc.IMVCView;
-    import com.whatanadventure.framework.mvc.MVCView;
 
     import feathers.controls.Button;
-
     import feathers.controls.ButtonGroup;
     import feathers.controls.Header;
     import feathers.controls.Screen;
@@ -56,7 +55,7 @@ package com.whatanadventure.framework.mvc.view
             super.screenID = value;
 
             if (!_mvcViewLayouts)
-                _mvcViewLayouts = _gameManager.modelManager.getModel(ModelManager.MVC_VIEWS) as ModelManager.MVC_VIEWS_CLASS;
+                _mvcViewLayouts = _gameManager.modelManager.getModel(BaseModelManager.MVC_VIEWS) as BaseModelManager.MVC_VIEWS_CLASS;
             if (!_mvcViewLayout)
                 _mvcViewLayout = _mvcViewLayouts.getViewLayoutById(_screenID);
 

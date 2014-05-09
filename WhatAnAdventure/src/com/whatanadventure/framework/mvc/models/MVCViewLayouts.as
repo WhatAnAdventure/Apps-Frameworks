@@ -3,14 +3,13 @@
  */
 package com.whatanadventure.framework.mvc.models
 {
-    import com.whatanadventure.framework.mvc.layout.CenterButtonGroupLayout;
-    import com.whatanadventure.framework.mvc.layout.MVCViewLayout;
-    import com.whatanadventure.framework.mvc.layout.MVCViewLayoutData;
-    import com.whatanadventure.framework.mvc.view.CenterButtonGroupView;
     import com.whatanadventure.framework.data.IJsonObject;
     import com.whatanadventure.framework.managers.BaseGameManager;
     import com.whatanadventure.framework.mvc.IMVCModel;
     import com.whatanadventure.framework.mvc.MVCModel;
+    import com.whatanadventure.framework.mvc.layout.CenterButtonGroupLayout;
+    import com.whatanadventure.framework.mvc.layout.MVCViewLayout;
+    import com.whatanadventure.framework.mvc.layout.MVCViewLayoutData;
 
     public class MVCViewLayouts extends MVCModel implements IMVCModel, IJsonObject
     {

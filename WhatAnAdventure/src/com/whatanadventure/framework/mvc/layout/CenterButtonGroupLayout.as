@@ -3,7 +3,6 @@
  */
 package com.whatanadventure.framework.mvc.layout
 {
-    import com.whatanadventure.adventuregame.mvc.layout.*;
     import com.whatanadventure.framework.data.IJsonObject;
 
     import feathers.data.ListCollection;
@@ -34,7 +33,7 @@ package com.whatanadventure.framework.mvc.layout
             return _title;
         }
 
-        public function get dataProvider():feathers.data.ListCollection
+        public function get dataProvider():ListCollection
         {
             return _dataProvider;
         }

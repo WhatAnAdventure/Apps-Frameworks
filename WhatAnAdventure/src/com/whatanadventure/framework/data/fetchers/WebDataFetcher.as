@@ -3,22 +3,16 @@
  */
 package com.whatanadventure.framework.data.fetchers
 {
-    import com.whatanadventure.framework.data.fetchers.BaseFetcher;
-    import com.whatanadventure.framework.data.fetchers.IFetcher;
+    import com.whatanadventure.framework.managers.BaseGameManager;
 
     public class WebDataFetcher extends BaseFetcher implements IFetcher
     {
-        public function WebDataFetcher()
+        public function WebDataFetcher(gameManager:BaseGameManager)
         {
-            super();
+            super(gameManager);
         }
 
-        public function get isFetching():Boolean
-        {
-            return false;
-        }
-
-        public function fetchGameData():void
+        public function fetchManifest():void
         {
         }
     }
