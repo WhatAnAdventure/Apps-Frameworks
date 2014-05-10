@@ -5,6 +5,7 @@ package com.whatanadventure.framework.data.fetchers
 {
     import com.whatanadventure.framework.config.FrameworkConfig;
     import com.whatanadventure.framework.managers.BaseGameManager;
+    import com.whatanadventure.framework.managers.BaseResourceManager;
 
     import flash.events.Event;
     import flash.filesystem.File;
@@ -16,9 +17,9 @@ package com.whatanadventure.framework.data.fetchers
         protected var _savedManifestURL:String;
         protected var _sharedObject:SharedObject;
 
-        public function LocalDataFetcher(gameManager:BaseGameManager)
+        public function LocalDataFetcher(resourceManager:BaseResourceManager)
         {
-            super(gameManager);
+            super(resourceManager);
 
             _sharedObject = SharedObject.getLocal(FrameworkConfig.SHARED_OBJECT_NAME);
             if (_sharedObject.data.savedManifestURL)
@@ -35,7 +36,7 @@ package com.whatanadventure.framework.data.fetchers
             }
             else
             {
-                _gameManager.resourceManager.getProjectFileAt(_savedManifestURL, receivedManifest);
+                _resourceManager.getProjectFileAt(_savedManifestURL, receivedManifest);
             }
         }
 
@@ -43,7 +44,7 @@ package com.whatanadventure.framework.data.fetchers
         {
             var loadFile:File = event.target as File;
             savedManifestURL = loadFile.url;
-            _gameManager.resourceManager.getProjectFileAt(loadFile.url, receivedManifest);
+            _resourceManager.getProjectFileAt(loadFile.url, receivedManifest);
         }
 
         public function set savedManifestURL(value:String):void

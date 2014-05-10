@@ -3,7 +3,7 @@
  */
 package com.whatanadventure.framework.data.fetchers
 {
-    import com.whatanadventure.framework.managers.BaseGameManager;
+    import com.whatanadventure.framework.managers.BaseResourceManager;
     import com.whatanadventure.framework.managers.IModelManager;
 
     import flash.events.Event;
@@ -17,12 +17,12 @@ package com.whatanadventure.framework.data.fetchers
         protected var _numFilesReceived:int;
         protected var _isFetching:Boolean;
         protected var _manifestData:Object;
-        protected var _gameManager:BaseGameManager;
+        protected var _resourceManager:BaseResourceManager;
 
-        public function BaseFetcher(gameManager:BaseGameManager)
+        public function BaseFetcher(resourceManager:BaseResourceManager)
         {
             super();
-            _gameManager = gameManager;
+            _resourceManager = resourceManager;
         }
 
         public function get isFetching():Boolean
@@ -55,7 +55,7 @@ package com.whatanadventure.framework.data.fetchers
                 var path:String;
                 for each (path in paths)
                 {
-                    _gameManager.resourceManager.getProjectFileAt(path, receivedFileData);
+                    _resourceManager.getProjectFileAt(path, receivedFileData);
                 }
             }
         }
@@ -64,7 +64,7 @@ package com.whatanadventure.framework.data.fetchers
         {
             var loader:URLLoader = URLLoader(event.target);
             var fileData:Object = JSON.parse(loader.data);
-            (_gameManager.modelManager as IModelManager).makeModelFromData(fileData);
+            dispatchEventWith(FetcherEvent.RECEIVED_FILE, false, fileData);
 
             _numFilesReceived++;
 

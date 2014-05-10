@@ -4,6 +4,7 @@
 package com.whatanadventure.framework.managers
 {
     import com.whatanadventure.framework.data.fetchers.BaseFetcher;
+    import com.whatanadventure.framework.data.fetchers.FetcherEvent;
 
     import flash.events.ProgressEvent;
     import flash.net.URLLoader;
@@ -17,11 +18,13 @@ package com.whatanadventure.framework.managers
         protected var _dataFetchers:Vector.<BaseFetcher>;
         protected var _urlLoaders:Vector.<URLLoader>;
         private var _numCompletedFetchers:int;
+        protected var _modelManager:BaseModelManager;
 
-        public function BaseResourceManager()
+        public function BaseResourceManager(modelManager:BaseModelManager)
         {
             super();
 
+            _modelManager = modelManager;
             _dataFetchers = new Vector.<BaseFetcher>();
         }
 
@@ -41,6 +44,12 @@ package com.whatanadventure.framework.managers
         {
             _dataFetchers.push(dataFetcher);
             (dataFetcher as EventDispatcher).addEventListener(Event.COMPLETE, onFetcherComplete);
+            (dataFetcher as EventDispatcher).addEventListener(FetcherEvent.RECEIVED_FILE, onReceiveFile);
+        }
+
+        private function onReceiveFile(event:Event):void
+        {
+            (_modelManager as IModelManager).makeModelFromData(event.data);
         }
 
         private function onFetcherComplete(event:Event):void
