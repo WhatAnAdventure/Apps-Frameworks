@@ -4,7 +4,6 @@
 package com.whatanadventure.framework.managers
 {
     import com.whatanadventure.framework.mvc.MVCModel;
-    import com.whatanadventure.framework.mvc.models.MVCViewLayouts;
 
     import flash.utils.Dictionary;
 
@@ -12,10 +11,6 @@ package com.whatanadventure.framework.managers
 
     public class BaseModelManager extends EventDispatcher
     {
-        public static const MVC_VIEWS:String = "mvcViews";
-
-        public static const MVC_VIEWS_CLASS:Class = MVCViewLayouts;
-
 //        protected var _gameManager:BaseGameManager;
         protected var _models:Dictionary;
 

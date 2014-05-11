@@ -5,6 +5,5 @@ package com.whatanadventure.framework.mvc
 {
     public interface IMVCModel
     {
-        function setProperties(properties:Object):void;
     }
 }

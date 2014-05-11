@@ -3,23 +3,19 @@
  */
 package com.whatanadventure.framework.mvc
 {
-    import com.whatanadventure.framework.managers.BaseGameManager;
-
     import starling.events.Event;
     import starling.events.EventDispatcher;
 
     public class MVCModel extends EventDispatcher
     {
-        public function MVCModel(gameManager:BaseGameManager, modelName:String)
+        protected var _modelName:String;
+
+        public function MVCModel(modelName:String)
         {
             super();
 
-            _gameManager = gameManager;
             _modelName = modelName;
         }
-
-        private var _gameManager:BaseGameManager;
-        private var _modelName:String;
 
         public function get name():String
         {

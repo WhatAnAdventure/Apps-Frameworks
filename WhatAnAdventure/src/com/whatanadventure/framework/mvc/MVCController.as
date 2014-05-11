@@ -3,56 +3,48 @@
  */
 package com.whatanadventure.framework.mvc
 {
-    import feathers.core.FeathersControl;
-
-    import starling.events.Event;
     import starling.events.EventDispatcher;
 
     public class MVCController extends EventDispatcher
     {
-        public function MVCController(model:MVCModel)
+        protected var _models:Vector.<MVCModel>;
+
+        public function MVCController()
         {
             super();
 
-            _model = model;
-            _model.addEventListener(Event.CHANGE, onModelChange);
+            _models = new Vector.<MVCModel>();
         }
 
-        protected var _model:MVCModel;
-        protected var _views:Vector.<FeathersControl>;
-
-        protected function addView(view:FeathersControl):Boolean
+        protected function addModel(model:MVCModel):Boolean
         {
             var result:Boolean;
 
-            if (_views.indexOf(view) == -1)
+            if (_models.indexOf(model) == -1)
             {
-                _views.push(view);
+                _models.push(model);
                 result = true;
             }
 
             return result;
         }
 
-        protected function removeView(view:FeathersControl):Boolean
+        protected function removeModel(model:MVCModel):Boolean
         {
             var result:Boolean;
 
-            if (_views.indexOf(view) != -1)
+            if (_models.indexOf(model) != -1)
             {
-                var removedViews:Vector.<FeathersControl> = _views.splice(_views.indexOf(view), 1);
+                var removedViews:Vector.<MVCModel> = _models.splice(_models.indexOf(model), 1);
                 result = (removedViews != null && removedViews.length > 0);
             }
 
             return result;
         }
 
-        protected function onModelChange(event:Event):void
+        public function get models():Vector.<com.whatanadventure.framework.mvc.MVCModel>
         {
-            for each (var view:FeathersControl in _views)
-            {
-
-            }
+            return _models;
         }
     }
 }

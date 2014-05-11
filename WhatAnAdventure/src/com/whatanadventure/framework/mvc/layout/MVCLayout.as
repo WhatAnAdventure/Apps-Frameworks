@@ -3,15 +3,13 @@
  */
 package com.whatanadventure.framework.mvc.layout
 {
-    import starling.events.EventDispatcher;
-
-    public class MVCViewLayout extends EventDispatcher
+    public class MVCLayout
     {
-        private var _viewId:String;
-        private var _layoutClass:String;
-        private var _layoutData:MVCViewLayoutData;
+        protected var _layoutClass:String;
+        protected var _mvcLayoutData:MVCLayoutData;
+        protected var _viewId:String;
 
-        public function MVCViewLayout()
+        public function MVCLayout()
         {
             super();
         }
@@ -36,14 +34,14 @@ package com.whatanadventure.framework.mvc.layout
             _layoutClass = value;
         }
 
-        public function set layoutData(value:MVCViewLayoutData):void
+        public function set mvcLayoutData(value:MVCLayoutData):void
         {
-            _layoutData = value;
+            _mvcLayoutData = value;
         }
 
-        public function get layoutData():MVCViewLayoutData
+        public function get mvcLayoutData():MVCLayoutData
         {
-            return _layoutData;
+            return _mvcLayoutData;
         }
     }
 }
