@@ -3,8 +3,6 @@
  */
 package com.whatanadventure.framework.mvc
 {
-    import com.whatanadventure.adventuregame.mvc.MVCClassLookUp;
-
     import feathers.core.FeathersControl;
 
     import starling.events.Event;

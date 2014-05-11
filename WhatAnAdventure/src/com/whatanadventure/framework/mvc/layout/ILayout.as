@@ -12,5 +12,7 @@ package com.whatanadventure.framework.mvc.layout
         function updateLayout():void;
 
         function get mvcLayoutData():MVCLayoutData;
+
+        function get layoutDataClass():Class;
     }
 }
