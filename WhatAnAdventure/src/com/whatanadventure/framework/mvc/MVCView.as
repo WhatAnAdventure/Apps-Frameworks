@@ -31,7 +31,7 @@ package com.whatanadventure.framework.mvc
             if (view.controller.models.indexOf(model) == -1)
             {
                 result = view.controller.models.push(model) as MVCModel;
-                model.addEventListener(Event.CHANGE, function (event:Event) {
+                model.addEventListener(Event.CHANGE, function (event:Event):void {
                     (view as FeathersControl).invalidate(invalidationFlag);
                 });
             }
