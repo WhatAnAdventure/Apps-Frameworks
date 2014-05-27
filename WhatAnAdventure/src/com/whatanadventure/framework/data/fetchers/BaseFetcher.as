@@ -46,18 +46,6 @@ package com.whatanadventure.framework.data.fetchers
 
             var loader:URLLoader = URLLoader(event.target);
             _manifestData = JSON.parse(loader.data);
-
-            var paths:Array;
-            for (var fetchType:String in _manifestData)
-            {
-                paths = _manifestData[fetchType];
-                _numFilesRequesting += paths.length;
-                var path:String;
-                for each (path in paths)
-                {
-                    _resourceManager.getProjectFileAt(path, receivedFileData);
-                }
-            }
         }
 
         protected function receivedFileData(event:Event):void

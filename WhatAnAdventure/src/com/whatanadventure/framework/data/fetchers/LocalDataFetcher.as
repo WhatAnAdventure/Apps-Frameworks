@@ -12,21 +12,21 @@ package com.whatanadventure.framework.data.fetchers
     import flash.net.FileFilter;
     import flash.net.SharedObject;
 
-    public class LocalDataFetcher extends BaseFetcher implements IFetcher
+    public class LocalDataFetcher extends ProjectFileDataFetcher implements IFetcher
     {
         protected var _savedManifestURL:String;
         protected var _sharedObject:SharedObject;
 
         public function LocalDataFetcher(resourceManager:BaseResourceManager)
         {
-            super(resourceManager);
+            super(resourceManager, "");
 
             _sharedObject = SharedObject.getLocal(FrameworkConfig.SHARED_OBJECT_NAME);
             if (_sharedObject.data.savedManifestURL)
                 _savedManifestURL = _sharedObject.data.savedManifestURL;
         }
 
-        public function fetchManifest():void
+        override public function fetchManifest():void
         {
             if (!_savedManifestURL || _savedManifestURL == "")
             {
@@ -36,7 +36,7 @@ package com.whatanadventure.framework.data.fetchers
             }
             else
             {
-                _resourceManager.getProjectFileAt(_savedManifestURL, receivedManifest);
+                getProjectFileAt(_savedManifestURL, receivedManifest);
             }
         }
 
@@ -44,7 +44,7 @@ package com.whatanadventure.framework.data.fetchers
         {
             var loadFile:File = event.target as File;
             savedManifestURL = loadFile.url;
-            _resourceManager.getProjectFileAt(loadFile.url, receivedManifest);
+            getProjectFileAt(loadFile.url, receivedManifest);
         }
 
         public function set savedManifestURL(value:String):void

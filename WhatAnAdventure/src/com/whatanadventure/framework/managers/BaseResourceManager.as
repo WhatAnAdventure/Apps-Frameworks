@@ -8,7 +8,6 @@ package com.whatanadventure.framework.managers
 
     import flash.events.ProgressEvent;
     import flash.net.URLLoader;
-    import flash.net.URLRequest;
 
     import starling.events.Event;
     import starling.events.EventDispatcher;
@@ -64,32 +63,13 @@ package com.whatanadventure.framework.managers
             }
         }
 
-        public function getProjectFileAt(url:String, completeCallback:Function, failCallback:Function = null):URLLoader
-        {
-            var urlRequest:URLRequest  = new URLRequest(url);
-
-            var urlLoader:URLLoader = new URLLoader();
-            urlLoader.addEventListener(ProgressEvent.PROGRESS, onProgress);
-            urlLoader.addEventListener(Event.COMPLETE, completeCallback);
-
-            try{
-                urlLoader.load(urlRequest);
-            } catch (error:Error) {
-                trace("Cannot load : " + error.message);
-                if (failCallback)
-                    failCallback(error.message);
-
-            }
-
-            addURLLoader(urlLoader);
-
-            return urlLoader;
-        }
-
-        private function addURLLoader(urlLoader:URLLoader):void
+        public function addURLLoader(urlLoader:URLLoader):void
         {
             if (_urlLoaders.indexOf(urlLoader) == -1)
+            {
                 _urlLoaders.push(urlLoader);
+                urlLoader.addEventListener(ProgressEvent.PROGRESS, onProgress);
+            }
         }
 
         protected function clearLoaders():void
@@ -101,7 +81,7 @@ package com.whatanadventure.framework.managers
             _urlLoaders = null;
         }
 
-        private function removeLoader(urlLoader:URLLoader):URLLoader
+        public function removeLoader(urlLoader:URLLoader):URLLoader
         {
             urlLoader.removeEventListener(ProgressEvent.PROGRESS, onProgress);
             urlLoader = _urlLoaders.splice(_urlLoaders.indexOf(urlLoader), 1) as URLLoader;
